@@ -1,23 +1,23 @@
-#ifndef SYUDENT_HPP
-#define SYUDENT_HPP
+﻿#pragma once
+
 #include <string>
-using namespace std;
+#include <mysql.h>
+
 class Student {
 private:
-	int id;
-	string name;
-	int score;
+    std::string sid;
+    std::string sname;
 public:
-	void setAll(int i, string n, int s);
-	void show();
-	int getID();
-	void setScore(int s);
-	int getScore();
-
+    void setInfo(std::string id, std::string n);
+    void show();
+    std::string getSid();
+    std::string getSname();
+    void setSid(std::string id);
+    void setSname(std::string n);
 };
 
-
-
-
-
-#endif
+MYSQL* getDBConn();
+void AddStudent(Student stu);
+Student QueryStudentBySid(std::string targetSid);
+void UpdateStudentName(std::string targetSid, std::string newName);
+void DeleteStudent(std::string targetSid);
