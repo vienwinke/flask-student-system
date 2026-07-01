@@ -13,7 +13,7 @@ void Score::showScore()
 {
     std::cout << "学号:" << sid << " 科目:" << subject
         << " 平时:" << usual_score << " 期末:" << end_score
-        << " 总评:" << final_score << std::endl;
+        << " 成绩:" << final_score << std::endl;
 }
 
 std::string Score::getSid() { return sid; }
@@ -61,17 +61,6 @@ Score QueryScore(const std::string& sid, const std::string& sub)
     return res;
 }
 
-void UpdateFinalScore(const std::string& sid, const std::string& sub, int newFinal)
-{
-    MYSQL* conn = getDBConn();
-    if (!conn) return;
-    char esc_sid[256], esc_sub[256];
-    mysql_real_escape_string(conn, esc_sid, sid.c_str(), (unsigned long)sid.length());
-    mysql_real_escape_string(conn, esc_sub, sub.c_str(), (unsigned long)sub.length());
-    char q[512];
-    snprintf(q, sizeof(q), "UPDATE score SET final_score=%d WHERE sid='%s' AND subject='%s'", newFinal, esc_sid, esc_sub);
-    if (mysql_query(conn, q) != 0) std::cerr << "SQL error: " << mysql_error(conn) << std::endl;
-}
 
 void DeleteScore(const std::string& sid, const std::string& sub)
 {

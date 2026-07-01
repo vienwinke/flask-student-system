@@ -29,5 +29,4 @@ public:
 extern MYSQL* getDBConn();
 void AddScore(Score sc);
 Score QueryScore(const std::string& sid, const std::string& sub);
-void UpdateFinalScore(const std::string& sid, const std::string& sub, int newFinal);
 void DeleteScore(const std::string& sid, const std::string& sub);
