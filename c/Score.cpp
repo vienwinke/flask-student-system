@@ -11,9 +11,9 @@ void Score::setAll(const std::string& id, const std::string& sub, int usual, int
 
 void Score::showScore()
 {
-    std::cout << "\u5b66\u53f7:" << sid << " \u79d1\u76ee:" << subject
-        << " \u5e73\u65f6:" << usual_score << " \u671f\u672b:" << end_score
-        << " \u603b\u8bc4:" << final_score << std::endl;
+    std::cout << "学号:" << sid << " 科目:" << subject
+        << " 平时:" << usual_score << " 期末:" << end_score
+        << " 总评:" << final_score << std::endl;
 }
 
 std::string Score::getSid() { return sid; }
@@ -37,8 +37,7 @@ void AddScore(Score sc)
     char q[512];
     snprintf(q, sizeof(q), "INSERT INTO score(sid,subject,usual_score,end_score,final_score) VALUES('%s','%s',%d,%d,%d)",
         esc_sid, esc_sub, sc.getUsual(), sc.getEnd(), sc.getFinal());
-    if (mysql_query(conn, q) != 0) { std::cerr << "SQL error: " << mysql_error(conn) << std::endl; }
-    mysql_close(conn);
+    if (mysql_query(conn, q) != 0) std::cerr << "SQL error: " << mysql_error(conn) << std::endl;
 }
 
 Score QueryScore(const std::string& sid, const std::string& sub)
@@ -59,7 +58,6 @@ Score QueryScore(const std::string& sid, const std::string& sub)
             mysql_free_result(result);
         }
     }
-    mysql_close(conn);
     return res;
 }
 
@@ -72,8 +70,7 @@ void UpdateFinalScore(const std::string& sid, const std::string& sub, int newFin
     mysql_real_escape_string(conn, esc_sub, sub.c_str(), (unsigned long)sub.length());
     char q[512];
     snprintf(q, sizeof(q), "UPDATE score SET final_score=%d WHERE sid='%s' AND subject='%s'", newFinal, esc_sid, esc_sub);
-    if (mysql_query(conn, q) != 0) { std::cerr << "SQL error: " << mysql_error(conn) << std::endl; }
-    mysql_close(conn);
+    if (mysql_query(conn, q) != 0) std::cerr << "SQL error: " << mysql_error(conn) << std::endl;
 }
 
 void DeleteScore(const std::string& sid, const std::string& sub)
@@ -85,6 +82,5 @@ void DeleteScore(const std::string& sid, const std::string& sub)
     mysql_real_escape_string(conn, esc_sub, sub.c_str(), (unsigned long)sub.length());
     char q[512];
     snprintf(q, sizeof(q), "DELETE FROM score WHERE sid='%s' AND subject='%s'", esc_sid, esc_sub);
-    if (mysql_query(conn, q) != 0) { std::cerr << "SQL error: " << mysql_error(conn) << std::endl; }
-    mysql_close(conn);
+    if (mysql_query(conn, q) != 0) std::cerr << "SQL error: " << mysql_error(conn) << std::endl;
 }

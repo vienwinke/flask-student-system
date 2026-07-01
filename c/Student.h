@@ -17,6 +17,7 @@ public:
 };
 
 MYSQL* getDBConn();
+void closeDBConn();
 void AddStudent(Student stu);
 Student QueryStudentBySid(const std::string& targetSid);
 void UpdateStudentName(const std::string& targetSid, const std::string& newName);
