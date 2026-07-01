@@ -123,12 +123,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-     <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
-   </Link>
-   <PostBuildEvent>
-      <Command>copy /y "D:\mysql-connector-c++-9.7.0-winx64\lib64\*.dll" "$(OutDir)
-     </Command>
-   </PostBuildEvent>
+      <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /y "D:\mysql-connector-c++-9.7.0-winx64\lib64\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>

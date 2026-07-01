@@ -12,15 +12,15 @@ private:
     int end_score;
     int final_score;
 public:
-    void setAll(std::string id, std::string sub, int usual, int end, int final);
+    void setAll(const std::string& id, const std::string& sub, int usual, int end, int final);
     void showScore();
     std::string getSid();
     std::string getSubject();
     int getUsual();
     int getEnd();
     int getFinal();
-    void setSid(std::string id);
-    void setSubject(std::string sub);
+    void setSid(const std::string& id);
+    void setSubject(const std::string& sub);
     void setUsual(int s);
     void setEnd(int s);
     void setFinal(int s);
@@ -28,6 +28,6 @@ public:
 
 extern MYSQL* getDBConn();
 void AddScore(Score sc);
-Score QueryScore(std::string sid, std::string sub);
-void UpdateFinalScore(std::string sid, std::string sub, int newFinal);
-void DeleteScore(std::string sid, std::string sub);
+Score QueryScore(const std::string& sid, const std::string& sub);
+void UpdateFinalScore(const std::string& sid, const std::string& sub, int newFinal);
+void DeleteScore(const std::string& sid, const std::string& sub);

@@ -13,16 +13,19 @@ MYSQL* getDBConn()
         mysql_close(conn);
         return nullptr;
     }
-    mysql_set_character_set(conn, "utf8mb4");
+    if (mysql_set_character_set(conn, "utf8mb4") != 0) {
+        mysql_close(conn);
+        return nullptr;
+    }
     return conn;
 }
 
-void Student::setInfo(std::string id, std::string n) { sid = id; sname = n; }
+void Student::setInfo(const std::string& id, const std::string& n) { sid = id; sname = n; }
 void Student::show() { std::cout << "\u5b66\u53f7\uff1a" << sid << " \u59d3\u540d\uff1a" << sname << std::endl; }
 std::string Student::getSid() { return sid; }
 std::string Student::getSname() { return sname; }
-void Student::setSid(std::string id) { sid = id; }
-void Student::setSname(std::string n) { sname = n; }
+void Student::setSid(const std::string& id) { sid = id; }
+void Student::setSname(const std::string& n) { sname = n; }
 
 void AddStudent(Student stu)
 {
@@ -36,7 +39,7 @@ void AddStudent(Student stu)
     mysql_close(conn);
 }
 
-Student QueryStudentBySid(std::string targetSid)
+Student QueryStudentBySid(const std::string& targetSid)
 {
     Student res;
     MYSQL* conn = getDBConn();
@@ -55,7 +58,7 @@ Student QueryStudentBySid(std::string targetSid)
     return res;
 }
 
-void UpdateStudentName(std::string targetSid, std::string newName)
+void UpdateStudentName(const std::string& targetSid, const std::string& newName)
 {
     MYSQL* conn = getDBConn();
     if (!conn) return;
@@ -67,7 +70,7 @@ void UpdateStudentName(std::string targetSid, std::string newName)
     mysql_close(conn);
 }
 
-void DeleteStudent(std::string targetSid)
+void DeleteStudent(const std::string& targetSid)
 {
     MYSQL* conn = getDBConn();
     if (!conn) return;

@@ -4,7 +4,7 @@
 #include <cstring>
 #include <cstdlib>
 
-void Score::setAll(std::string id, std::string sub, int usual, int end, int final)
+void Score::setAll(const std::string& id, const std::string& sub, int usual, int end, int final)
 {
     sid = id; subject = sub; usual_score = usual; end_score = end; final_score = final;
 }
@@ -21,8 +21,8 @@ std::string Score::getSubject() { return subject; }
 int Score::getUsual() { return usual_score; }
 int Score::getEnd() { return end_score; }
 int Score::getFinal() { return final_score; }
-void Score::setSid(std::string id) { sid = id; }
-void Score::setSubject(std::string sub) { subject = sub; }
+void Score::setSid(const std::string& id) { sid = id; }
+void Score::setSubject(const std::string& sub) { subject = sub; }
 void Score::setUsual(int s) { usual_score = s; }
 void Score::setEnd(int s) { end_score = s; }
 void Score::setFinal(int s) { final_score = s; }
@@ -41,7 +41,7 @@ void AddScore(Score sc)
     mysql_close(conn);
 }
 
-Score QueryScore(std::string sid, std::string sub)
+Score QueryScore(const std::string& sid, const std::string& sub)
 {
     Score res;
     MYSQL* conn = getDBConn();
@@ -63,7 +63,7 @@ Score QueryScore(std::string sid, std::string sub)
     return res;
 }
 
-void UpdateFinalScore(std::string sid, std::string sub, int newFinal)
+void UpdateFinalScore(const std::string& sid, const std::string& sub, int newFinal)
 {
     MYSQL* conn = getDBConn();
     if (!conn) return;
@@ -76,7 +76,7 @@ void UpdateFinalScore(std::string sid, std::string sub, int newFinal)
     mysql_close(conn);
 }
 
-void DeleteScore(std::string sid, std::string sub)
+void DeleteScore(const std::string& sid, const std::string& sub)
 {
     MYSQL* conn = getDBConn();
     if (!conn) return;

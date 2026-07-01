@@ -8,16 +8,16 @@ private:
     std::string sid;
     std::string sname;
 public:
-    void setInfo(std::string id, std::string n);
+    void setInfo(const std::string& id, const std::string& n);
     void show();
     std::string getSid();
     std::string getSname();
-    void setSid(std::string id);
-    void setSname(std::string n);
+    void setSid(const std::string& id);
+    void setSname(const std::string& n);
 };
 
 MYSQL* getDBConn();
 void AddStudent(Student stu);
-Student QueryStudentBySid(std::string targetSid);
-void UpdateStudentName(std::string targetSid, std::string newName);
-void DeleteStudent(std::string targetSid);
+Student QueryStudentBySid(const std::string& targetSid);
+void UpdateStudentName(const std::string& targetSid, const std::string& newName);
+void DeleteStudent(const std::string& targetSid);
