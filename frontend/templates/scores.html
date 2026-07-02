@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <h1>成绩列表</h1>
+    <p class="text-muted">查看所有学生的各科成绩明细</p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2><i class="bi bi-table"></i> 全部成绩</h2>
+        <button class="btn btn-primary" onclick="showAddScore()"><i class="bi bi-plus-lg"></i> 添加成绩</button>
+        <div class="search-bar">
+            <i class="bi bi-search"></i>
+            <input type="text" id="scoreSearch" placeholder="搜索学号、姓名或科目..." oninput="filterScores()">
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table" id="scoreTable">
+            <thead>
+                <tr><th>学号</th><th>姓名</th><th>科目</th><th>平时分</th><th>期末分</th><th>总分</th><th>状态</th><th></th></tr>
+            </thead>
+            <tbody id="scoreBody"></tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- 修改成绩弹窗 -->
+<div class="modal-overlay" id="editScoreModal" onclick="closeAddModal()">
+    <div class="modal modal-sm" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3><i class="bi bi-pencil"></i> 修改成绩</h3>
+            <button class="btn-close" onclick="closeAddModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="editScoreForm">
+                <div class="form-group">
+                    <label>学号</label>
+                    <input type="text" id="editScoreSid" readonly style="background:#f5f5f5">
+                </div>
+                <div class="form-group">
+                    <label>科目</label>
+                    <input type="text" id="editScoreSubject" readonly style="background:#f5f5f5">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>平时分</label>
+                        <input type="number" id="editScoreUsual" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label>期末分</label>
+                        <input type="number" id="editScoreEnd" min="0" max="100">
+                    </div>
+                </div>
+                <div id="editScoreResult" style="display:none" class="import-note"></div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="doEditScore()">确认修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加成绩弹窗 -->
+<div class="modal-overlay" id="addScoreModal" onclick="closeAddModal()">
+    <div class="modal modal-sm" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3><i class="bi bi-file-earmark-plus"></i> 添加成绩</h3>
+            <button class="btn-close" onclick="closeAddModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="addScoreForm">
+                <div class="form-group">
+                    <label>学号</label>
+                    <input type="text" name="sid" required placeholder="如 001" list="studentList">
+                    <datalist id="studentList"></datalist>
+                </div>
+                <div class="form-group">
+                    <label>科目</label>
+                    <input type="text" name="subject" required placeholder="如 数学" list="subjectList">
+                    <datalist id="subjectList"></datalist>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>平时分</label>
+                        <input type="number" name="usual" required min="0" max="100" value="80">
+                    </div>
+                    <div class="form-group">
+                        <label>期末分</label>
+                        <input type="number" name="end" required min="0" max="100" value="80">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="doAddScore()">确认添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

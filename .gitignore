@@ -361,3 +361,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# Python
+*.pyc
+__pycache__/
+
+# Project-specific
+cpolar-bin2/
+cpolar.zip
+Temp.txt
+.vs/
+*.user
