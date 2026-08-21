@@ -1,0 +1,7 @@
+# 项目依赖库列表
+# 请在项目根目录下运行: pip install -r requirements.txt
+
+Flask
+pymysql
+openpyxl
+python-dotenv
